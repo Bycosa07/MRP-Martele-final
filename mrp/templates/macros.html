@@ -1,0 +1,46 @@
+{% macro render_pagination(pagination, endpoint, busqueda = '') %}
+<!--
+<div class="page-item">
+  {{ pagination.first }} - {{ pagination.last }} de {{ pagination.total }}
+</div>
+-->
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item">
+            <a class="page-link" href="{{url_for(endpoint)}}?pagina={{1}}">Primera</a>
+        </li>
+
+        {% for page in pagination.iter_pages() %}
+            {% if page %}
+                {% if busqueda == '' %}
+                    {% if page != pagination.page %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{url_for(endpoint,pagina=page)}}">{{ page }}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link active" href="{{url_for(endpoint,pagina=page)}}">{{ page }}</a>
+                        </li>
+                    {% endif %}
+                {% else %}
+                    {% if page != pagination.page %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{url_for(endpoint,pagina=page,busqueda=busqueda)}}">{{ page }}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link active" href="{{url_for(endpoint,pagina=page,busqueda=busqueda)}}">{{ page }}</a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+            {% else %}
+                <span class=ellipsis>…</span>
+            {% endif %}
+        {% endfor %}
+        <li class="page-item">
+            <a class="page-link" href="{{url_for(endpoint,pagina=pagination.pages,busqueda=busqueda)}}">Última</a>
+        </li>
+    </ul>
+</nav>
+
+{% endmacro %}

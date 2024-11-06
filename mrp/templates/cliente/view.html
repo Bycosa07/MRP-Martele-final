@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-sm mt-5">
+    <h2>Detalle de {{dato.nombre}}</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <dl>
+                <div class="row">
+                    <dt class="col-sm-5">
+                        Identificación
+                    </dt>
+                    <dd class="col-sm-7">
+                        {{dato.identificacion}}
+                    </dd>
+                </div>
+                <div class="row">
+                    <dt class="col-sm-5">
+                        Nombre
+                    </dt>
+                    <dd class="col-sm-7">
+                        {{dato.nombre}}
+                    </dd>
+                </div>
+
+                <div class="row">
+                    <dt class="col-sm-5">
+                        Correo Electrónico
+                    </dt>
+                    <dd class="col-sm-7">
+                        <a href= "mailto:{{dato.correo_electronico}}">
+                            {{dato.correo_electronico}}
+                        </a>
+                    </dd>
+                </div>
+
+                <div class="row">
+                    <dt class="col-sm-5">
+                        Teléfono
+                    </dt>
+                    <dd class="col-sm-7">
+                        <a href="tel:{{dato.telefono}}">
+                            {{dato.telefono}}
+                        </a>
+                    </dd>
+                </div>
+
+                <div class="row">
+                    <dt class="col-sm-5">
+                        Tipo
+                    </dt>
+                    <dd class="col-sm-7">
+                        {%if dato.es_persona_fisica %}
+                        <span class="text-success">Persona física</span>
+                        {%else%}
+                        <span class="text-info">Empresa</span>
+                        {%endif%}
+                    </dd>
+                </div>
+
+                <div class="row">
+                    <dt class="col-sm-5">
+                        Estado
+                    </dt>
+                    <dd class="col-sm-7">
+                        {%if dato.esta_activo %}
+                        <span class="text-success">Activo</span>
+                        {%else%}
+                        <span class="text-danger">Inactivo</span>
+                        {%endif%}
+                    </dd>
+                </div>
+                <div class="row">
+                    <dt class="col-sm-5">
+                        Lugar
+                    </dt>
+                    <dd class="col-sm-7">
+                        <a class="btn btn-light d-block my-1"
+                           href="{{url_for('lugar.view', id = dato.lugar.id)}}">
+                            {{dato.lugar.nombre}}
+                        </a>
+                    </dd>
+                </div>
+
+                <!--
+                                <div class="row">
+                                    <dt class="col-sm-5">
+
+                                    </dt>
+                                    <dd class="col-sm-7">
+
+                                    </dd>
+                                </div>
+                -->
+            </dl>
+            <!--      <img src="producto.jpg" class="img-fluid" alt="Producto">-->
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col">
+                    <a class="btn btn-info d-block my-1"
+                       href="{{url_for('cliente.update', id = dato.id)}}">Editar</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <a class="btn btn-danger d-block my-1"
+                       href="{{url_for('cliente.delete', id = dato.id)}}">Eliminar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row my-2">
+        <div class="col text-center">
+            <a class="btn btn-secondary"
+               href="{{ url_for('cliente.index')}}">
+                Regresar al listado
+            </a>
+        </div>
+    </div>
+</div>
+
+
+{% endblock%}
